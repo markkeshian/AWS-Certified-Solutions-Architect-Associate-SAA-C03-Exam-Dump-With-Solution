@@ -3,10 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ff9900">
+    <meta name="description" content="AWS Solutions Architect Associate SAA-C03 Practice Quiz Application">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="AWS Quiz">
     <title>AWS SAA-C03 Quiz</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/873/873120.png">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Install Prompt -->
+    <div id="installPrompt" class="install-prompt" style="display: none;">
+        <div class="install-content">
+            <span>📱 Install this app on your device for quick access!</span>
+            <div class="install-buttons">
+                <button id="installBtn" class="btn btn-primary">Install</button>
+                <button id="dismissBtn" class="btn btn-secondary">Later</button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <header>
             <h1>AWS SAA-C03 Practice Quiz</h1>
@@ -45,5 +63,46 @@
     </div>
 
     <script src="quiz.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+
+        // Install Prompt Logic
+        let deferredPrompt;
+        const installPrompt = document.getElementById('installPrompt');
+        const installBtn = document.getElementById('installBtn');
+        const dismissBtn = document.getElementById('dismissBtn');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installPrompt.style.display = 'block';
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response: ${outcome}`);
+                deferredPrompt = null;
+                installPrompt.style.display = 'none';
+            }
+        });
+
+        dismissBtn.addEventListener('click', () => {
+            installPrompt.style.display = 'none';
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installed successfully');
+            installPrompt.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
