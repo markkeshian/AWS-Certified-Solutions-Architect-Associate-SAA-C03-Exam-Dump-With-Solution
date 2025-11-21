@@ -161,7 +161,7 @@ class Quiz {
             }
         });
         
-        // Sort by question number
+        // Sort by question number (for now, will shuffle later)
         this.questions.sort((a, b) => a.number - b.number);
         
         // Remove duplicates
@@ -178,7 +178,10 @@ class Quiz {
         }
         this.questions = uniqueQuestions;
         
-        console.log(`✅ Loaded ${this.questions.length} questions`);
+        // Shuffle questions for random order
+        this.shuffleArray(this.questions);
+        
+        console.log(`✅ Loaded ${this.questions.length} questions (randomized)`);
         console.log(`📊 First 10: ${this.questions.slice(0, 10).map(q => q.number).join(', ')}`);
         console.log(`📊 Last 10: ${this.questions.slice(-10).map(q => q.number).join(', ')}`);
         if (duplicates.length > 0) {
@@ -207,6 +210,15 @@ class Quiz {
             document.getElementById('scoreCounter').textContent = 
                 `Score: 0/${this.questions.length}`;
         }
+    }
+
+    shuffleArray(array) {
+        // Fisher-Yates shuffle algorithm for true randomization
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
     }
 
     generateChoicesFromAnswer(correctAnswer) {
@@ -279,8 +291,12 @@ class Quiz {
         
         controls.style.display = 'flex';
 
-        const choicesHtml = question.choices.map((choice, index) => `
-            <div class="choice" data-index="${index}">
+        // Shuffle choices to randomize answer positions
+        const shuffledChoices = [...question.choices];
+        this.shuffleArray(shuffledChoices);
+        
+        const choicesHtml = shuffledChoices.map((choice, index) => `
+            <div class="choice" data-choice-id="${question.choices.indexOf(choice)}">
                 <span class="choice-label">${String.fromCharCode(65 + index)}.</span>
                 <span class="choice-text">${choice.text}</span>
             </div>
@@ -289,7 +305,7 @@ class Quiz {
         container.innerHTML = `
             <div class="question-container">
                 <div class="question-text">
-                    <strong>Question ${question.number}:</strong> ${question.question}
+                    <strong>Question ${this.currentQuestionIndex + 1}:</strong> ${question.question}
                 </div>
                 <div class="choices">
                     ${choicesHtml}
@@ -314,12 +330,12 @@ class Quiz {
         // Don't allow selection if already answered
         if (this.userAnswers[this.currentQuestionIndex] !== undefined) return;
 
-        const index = parseInt(choiceElement.dataset.index);
+        const choiceId = parseInt(choiceElement.dataset.choiceId);
         const question = this.questions[this.currentQuestionIndex];
-        const isCorrect = question.choices[index].isCorrect;
+        const isCorrect = question.choices[choiceId].isCorrect;
 
         // Mark user's answer
-        this.userAnswers[this.currentQuestionIndex] = index;
+        this.userAnswers[this.currentQuestionIndex] = choiceId;
 
         // Disable all choices
         document.querySelectorAll('.choice').forEach(choice => {
@@ -336,8 +352,9 @@ class Quiz {
             choiceElement.innerHTML += '<span class="choice-icon">✗</span>';
             
             // Highlight correct answer
-            document.querySelectorAll('.choice').forEach((choice, idx) => {
-                if (question.choices[idx].isCorrect) {
+            document.querySelectorAll('.choice').forEach((choice) => {
+                const cId = parseInt(choice.dataset.choiceId);
+                if (question.choices[cId].isCorrect) {
                     choice.classList.add('correct');
                     choice.innerHTML += '<span class="choice-icon">✓</span>';
                 }
@@ -513,6 +530,9 @@ class Quiz {
         this.currentPage = 1;
         this.score = 0;
         this.userAnswers = [];
+        
+        // Shuffle questions again for new random order
+        this.shuffleArray(this.questions);
         
         document.getElementById('quizContainer').style.display = 'block';
         document.getElementById('results').style.display = 'none';
