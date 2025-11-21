@@ -326,15 +326,6 @@ D. Enable AWS Shield Advanced and assign the ELB to it.
 AWS Shield Advanced provides expanded DDoS attack protection for your Amazon EC2 instances, Elastic Load Balancing load balancers, CloudFront distributions, Route 53 hosted zones, and AWS Global Accelerator standard accelerators.
 ----------------------------------------------------------------------------------
 
-36] 
-
-
-
-
-
-
-
-
 37] A company recently launched a variety of new workloads on Amazon EC2 instances in its AWS account. The company needs to create a strategy to access and administer the instances remotely and securely. The company needs to implement a repeatable process that works with native AWS services and follows the AWS Well-Architected Framework.
 Which solution will meet these requirements with the LEAST operational overhead?
 
@@ -2363,7 +2354,7 @@ B. Amazon Aurora Serverless for MySQL
 Amazon Aurora Serverless: Aurora Serverless is a fully managed, on-demand, and auto-scaling relational database engine provided by AWS. It is suitable for infrequent access patterns and allows the database to automatically start up, shut down, and scale capacity based on actual usage.
 -------------------------------------------------------------------------------------------
 
-215] A company experienced a breach that affected several applications in its on-premises data center. The attacker took advantage of vulnerabilities in the custom applications that were running on the servers. The company is now migrating its applications to run on Amazon EC2 instances. The company wants to implement a solution that actively scans for vulnerabilities on the EC2 instances and sends a report that details the findings.
+315] A company experienced a breach that affected several applications in its on-premises data center. The attacker took advantage of vulnerabilities in the custom applications that were running on the servers. The company is now migrating its applications to run on Amazon EC2 instances. The company wants to implement a solution that actively scans for vulnerabilities on the EC2 instances and sends a report that details the findings.
 
 Which solution will meet these requirements?
 
@@ -6151,6 +6142,7 @@ CloudFront (Option A) is for caching, not app hosting.
 
 
  
+
 
 
 

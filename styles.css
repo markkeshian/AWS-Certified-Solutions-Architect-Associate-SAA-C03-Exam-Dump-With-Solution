@@ -1,0 +1,398 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    background: #f5f5f5;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 20px 30px;
+    border-bottom: 3px solid #3498db;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0 0 15px 0;
+    text-align: center;
+    font-weight: 600;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.stats .separator {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+main {
+    padding: 30px;
+    min-height: 300px;
+}
+
+.loading {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 50px;
+}
+
+.question-container {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.question-text {
+    font-size: 16px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    padding: 20px;
+    background: #f8f9fa;
+    border-left: 4px solid #3498db;
+    border-radius: 4px;
+}
+
+.choices {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.choice {
+    padding: 15px 20px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.choice:hover:not(.disabled) {
+    border-color: #3498db;
+    background: #f0f8ff;
+    transform: translateX(3px);
+}
+
+.choice-label {
+    font-weight: 700;
+    margin-right: 12px;
+    color: #3498db;
+    min-width: 25px;
+    font-size: 15px;
+}
+
+.choice-text {
+    flex: 1;
+    line-height: 1.6;
+    color: #2c3e50;
+    font-size: 15px;
+}
+
+.choice.selected {
+    border-color: #3498db;
+    background: #e3f2fd;
+}
+
+.choice.correct {
+    border-color: #27ae60;
+    background: #d4edda;
+    border-width: 2px;
+}
+
+.choice.incorrect {
+    border-color: #e74c3c;
+    background: #f8d7da;
+    border-width: 2px;
+}
+
+.choice.disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+.choice-icon {
+    margin-left: auto;
+    padding-left: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.explanation {
+    margin-top: 25px;
+    padding: 20px;
+    background: white;
+    border: 2px solid #e0e0e0;
+    border-radius: 6px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.explanation.correct {
+    border-color: #27ae60;
+    background: #f0fdf4;
+}
+
+.explanation.incorrect {
+    border-color: #e74c3c;
+    background: #fef2f2;
+}
+
+.explanation h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.explanation h3.correct {
+    color: #27ae60;
+}
+
+.explanation h3.incorrect {
+    color: #e74c3c;
+}
+
+.explanation p {
+    color: #2c3e50;
+    line-height: 1.7;
+    margin: 0;
+    font-size: 14px;
+}
+
+.quiz-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 30px;
+    border-top: 1px solid #e0e0e0;
+    background: #f9f9f9;
+}
+
+.navigation-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.pagination-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: #2980b9;
+}
+
+.btn-secondary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #c0392b;
+}
+
+.btn-success {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #229954;
+}
+
+.results {
+    padding: 50px 30px;
+    text-align: center;
+}
+
+.results h2 {
+    color: #2c3e50;
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.final-score {
+    font-size: 20px;
+    margin-bottom: 30px;
+    padding: 30px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    color: #2c3e50;
+}
+
+.score-good {
+    color: #27ae60;
+}
+
+.score-medium {
+    color: #f39c12;
+}
+
+.score-poor {
+    color: #e74c3c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 20px;
+    }
+
+    .container {
+        border-radius: 6px;
+    }
+
+    header {
+        padding: 15px 20px;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .question-text {
+        font-size: 15px;
+        padding: 15px;
+    }
+
+    .choice {
+        padding: 12px 15px;
+    }
+
+    .choice-text {
+        font-size: 14px;
+    }
+
+    .quiz-controls {
+        gap: 10px;
+        padding: 15px;
+    }
+
+    .navigation-section,
+    .pagination-section {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .navigation-section .btn,
+    .pagination-section .btn {
+        flex: 1;
+        min-width: 100px;
+    }
+
+    #pageInfo {
+        width: 100%;
+        text-align: center;
+        order: -1;
+        margin-bottom: 10px;
+    }
+
+    .stats {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    .stats .separator {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 18px;
+    }
+
+    .question-text {
+        font-size: 14px;
+    }
+
+    .choice {
+        padding: 10px 12px;
+    }
+
+    .choice-label {
+        min-width: 20px;
+        font-size: 14px;
+    }
+
+    .choice-text {
+        font-size: 13px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS SAA-C03 Quiz</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AWS SAA-C03 Practice Quiz</h1>
+            <div class="stats">
+                <span id="questionCounter">Question 1 of 0</span>
+                <span class="separator">|</span>
+                <span id="scoreCounter">Score: 0/0</span>
+                <span class="separator">|</span>
+                <span id="paginationInfo">Page 1 of 1</span>
+            </div>
+        </header>
+
+        <main id="quizContainer">
+            <div class="loading">Loading questions...</div>
+        </main>
+
+        <div class="quiz-controls" id="quizControls" style="display: none;">
+            <div class="navigation-section">
+                <button id="prevBtn" class="btn btn-secondary" disabled>← Previous</button>
+                <button id="nextBtn" class="btn btn-primary">Next →</button>
+            </div>
+            <div class="pagination-section">
+                <button id="firstPageBtn" class="btn btn-secondary">⏮ First</button>
+                <button id="prevPageBtn" class="btn btn-secondary">◀ Prev Page</button>
+                <span id="pageInfo" style="margin: 0 15px; font-weight: bold;">Page 1</span>
+                <button id="nextPageBtn" class="btn btn-secondary">Next Page ▶</button>
+                <button id="lastPageBtn" class="btn btn-secondary">Last ⏭</button>
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <h2>Quiz Complete! 🎉</h2>
+            <div class="final-score" id="finalScore"></div>
+            <button id="restartBtn" class="btn btn-primary">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>
